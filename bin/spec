@@ -1,0 +1,3 @@
+#!/bin/bash -i
+./bin/webpack > /dev/null
+rspec "$@"
