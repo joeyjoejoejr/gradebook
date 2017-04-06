@@ -1,4 +1,8 @@
 class Api::CoursesController < ApiController
+  def index
+    render json: Course.all
+  end
+
   def create
     course = Course.new course_params
 
@@ -8,6 +12,20 @@ class Api::CoursesController < ApiController
       render json: { errors: course.errors.full_messages },
              status: :unprocessable_entity
     end
+  end
+
+  def update
+    course = Course.find params[:id]
+    if course.update course_params
+      render json: course
+    else
+      render json: { errors: course.errors.full_messages },
+             status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    Course.destroy params[:id]
   end
 
   private

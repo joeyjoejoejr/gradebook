@@ -6,15 +6,28 @@ class CourseForm extends React.Component {
     this.state = {
       name: '',
       semester: '',
+      id: ''
     };
+    this._clearState = this.state;
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
+  componentWillReceiveProps(props) {
+    const course = props.course;
+    if(this.props.course !== course) {
+      this.setState({
+        name: course.name,
+        semester: course.semester,
+        id: course.id,
+      })
+    }
+  }
+
   handleSubmit(event) {
-    this.props.submitForm(this.state).then(resp => {
-      this.setState({ name: '', semester: '', errors: '' });
-    }).catch(err => this.setState({ errors: err.responseErrors }));
+    this.props.submitForm(this.state)
+      .then(() => this.setState(this._clearState))
+      .catch(err => this.setState({ errors: err.responseErrors }));
 
     event.preventDefault();
   }
@@ -46,14 +59,14 @@ class CourseForm extends React.Component {
           Semester
           <select
             name="semester"
-            value={this.state.select}
+            value={this.state.semester}
             onChange={this.handleChange}>
             <option value="" />
             <option value="1">Spring 2017</option>
           </select>
         </label>
 
-        <input type="submit" value="Add Course" />
+        <input type="submit" value={`${this.props.buttonText} Course`} />
       </form>
     );
   }
@@ -61,6 +74,8 @@ class CourseForm extends React.Component {
 
 CourseForm.propTypes = {
   submitForm: React.PropTypes.func.isRequired,
+  buttonText: React.PropTypes.string.isRequired,
+  course: React.PropTypes.object
 }
 
 export default CourseForm

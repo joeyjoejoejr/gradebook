@@ -20,3 +20,10 @@ export let createCourse = body => fetch('api/courses', {
   method: 'POST', headers, body: JSON.stringify(body)
 }).then(handleResponse);
 
+export let updateCourse = body => fetch(`api/courses/${body.id}`, {
+  method: 'PUT', headers, body: JSON.stringify(body)
+}).then(handleResponse);
+
+export let deleteCourse = course => fetch(`api/courses/${course.id}`, {
+  method: 'DELETE', headers
+});
