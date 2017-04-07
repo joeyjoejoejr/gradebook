@@ -7,7 +7,6 @@ class CourseForm extends React.Component {
     super(props);
     this.state = {
       name: '',
-      semester: '',
       id: '',
       students: [],
       errors: null,
@@ -25,7 +24,6 @@ class CourseForm extends React.Component {
     if(this.props.course !== course) {
       this.setState({
         name: course.name,
-        semester: course.semester,
         id: course.id,
         students: course.students
       })
@@ -36,7 +34,6 @@ class CourseForm extends React.Component {
     const params = {
       id: this.state.id,
       name: this.state.name,
-      semester: this.state.semester,
       students: this.state.students,
     }
     this.props.submitForm(params)
@@ -89,17 +86,6 @@ class CourseForm extends React.Component {
                 value={this.state.name}
                 onChange={this.handleChange}
               />
-            </label>
-
-            <label>
-              Semester
-              <select
-                name="semester"
-                value={this.state.semester}
-                onChange={this.handleChange}>
-                <option value="" />
-                <option value="1">Spring 2017</option>
-              </select>
             </label>
 
             <StudentSearch addStudent={this.addStudent} />

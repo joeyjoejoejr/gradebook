@@ -8,7 +8,6 @@ RSpec.describe "Teacher Can Manage Their Course Roster" do
     visit "/"
     within "#course" do
       fill_in "Name", with: course_name
-      select "Spring 2017", from: "Semester"
       click_button "Add Course"
     end
 

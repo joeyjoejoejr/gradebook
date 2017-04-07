@@ -47,7 +47,7 @@ class Api::CoursesController < ApiController
   private
 
   def course_params
-    params.require(:course).permit(:name, :semester_id, :teacher_id)
+    params.require(:course).permit(:name)
   end
 
   def student_params
