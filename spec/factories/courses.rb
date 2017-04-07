@@ -1,6 +1,7 @@
 FactoryGirl.define do
+  sequence(:name) { |n| "Biology 10#{n}" }
   factory :course do
-    name "Biology 101"
+    name
     teacher
   end
 end

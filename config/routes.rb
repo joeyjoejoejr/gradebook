@@ -3,6 +3,11 @@ Rails.application.routes.draw do
   namespace :api do
     resources :courses, except: [:show, :edit]
     resources :students, only: [:index]
+    resources :users, only: [:index] do
+      collection do
+        get :dashboard
+      end
+    end
   end
 
   root to: 'pages#index'

@@ -13,7 +13,12 @@ const handleResponse = response => response.json().then(json => {
   return json;
 });
 
+const getUser = () => fetch('api/users', { headers }).then(handleResponse);
+
 export let getCourses = () => fetch('api/courses', { headers })
+  .then(handleResponse);
+
+export let getDashboard = () => fetch('api/users/dashboard', { headers })
   .then(handleResponse);
 
 export let createCourse = body => fetch('api/courses', {
@@ -32,7 +37,10 @@ export let searchStudents = name => fetch(`api/students?name=${name}`, {
   headers
 }).then(handleResponse);
 
-export let isLoggedIn = () => !!localStorage.getItem('token');
+export let currentUser = () => JSON.parse(
+  localStorage.getItem('currentUser')
+);
+
 export let login = body => fetch(`user_token`, {
   method: 'POST', headers, body: JSON.stringify({ auth: body })
 })
@@ -40,6 +48,11 @@ export let login = body => fetch(`user_token`, {
   .then(response => {
     headers['Authorization'] = `Bearer ${response.jwt}`;
     localStorage.setItem('token', response.jwt);
+  })
+  .then(getUser)
+  .then(user => {
+    localStorage.setItem('currentUser', JSON.stringify(user));
+    return user;
   });
 
-export let logout = () => localStorage.removeItem('token');
+export let logout = () => localStorage.clear();

@@ -4,12 +4,16 @@ RSpec.describe "Teacher Can Manage Their Course Roster" do
   let(:course_name) { "Biology 101" }
   let(:new_course_name) { "Biology 102" }
 
-  before :all do
-    teacher = create :teacher
+  before :each do
+    teacher = create :teacher, password: "password"
     visit "/"
     fill_in "Email", with: teacher.email
     fill_in "Password", with: "password"
     click_button "Sign In"
+  end
+
+  after :each do
+    click_button "Sign Out"
   end
 
   it "can manage a course" do

@@ -35,8 +35,9 @@ class Api::CoursesController < ApiController
       students.each do |student|
         course.registrations
           .where(student_id: student.fetch(:id))
-          .update_all(grade: student.fetch(:grade, nil))
+          .update(grade: student.fetch(:grade, nil))
       end
+
       render json: course
     else
       render json: { errors: course.errors.full_messages },
