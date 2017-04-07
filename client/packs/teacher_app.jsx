@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TeacherPage from 'TeacherPage';
+import App from 'App';
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <TeacherPage />,
+    <App />,
     document.body.appendChild(document.createElement('div')),
   );
 });

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170407013227) do
+ActiveRecord::Schema.define(version: 20170407170603) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(version: 20170407013227) do
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "teacher_id"
+    t.index ["teacher_id"], name: "index_courses_on_teacher_id"
   end
 
   create_table "registrations", force: :cascade do |t|
@@ -36,8 +38,11 @@ ActiveRecord::Schema.define(version: 20170407013227) do
     t.string "type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "password_digest"
+    t.string "email"
   end
 
+  add_foreign_key "courses", "users", column: "teacher_id"
   add_foreign_key "registrations", "courses"
   add_foreign_key "registrations", "users", column: "student_id"
 end

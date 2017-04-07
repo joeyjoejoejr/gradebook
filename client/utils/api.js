@@ -1,4 +1,5 @@
 const headers = {
+  'Authorization': `Bearer ${localStorage.getItem('token')}`,
   'Content-Type': 'application/json',
 }
 
@@ -11,7 +12,6 @@ const handleResponse = response => response.json().then(json => {
 
   return json;
 });
-
 
 export let getCourses = () => fetch('api/courses', { headers })
   .then(handleResponse);
@@ -31,3 +31,15 @@ export let deleteCourse = course => fetch(`api/courses/${course.id}`, {
 export let searchStudents = name => fetch(`api/students?name=${name}`, {
   headers
 }).then(handleResponse);
+
+export let isLoggedIn = () => !!localStorage.getItem('token');
+export let login = body => fetch(`user_token`, {
+  method: 'POST', headers, body: JSON.stringify({ auth: body })
+})
+  .then(handleResponse)
+  .then(response => {
+    headers['Authorization'] = `Bearer ${response.jwt}`;
+    localStorage.setItem('token', response.jwt);
+  });
+
+export let logout = () => localStorage.removeItem('token');

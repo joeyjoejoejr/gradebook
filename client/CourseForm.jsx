@@ -98,7 +98,7 @@ class CourseForm extends React.Component {
                   index={i}
                   student={student}
                   handleRemove={this.removeStudent}
-                  handleUpdate={this.updateGrade.bind(i)}
+                  handleUpdate={this.updateGrade}
                 />
               ))}
             </ul>

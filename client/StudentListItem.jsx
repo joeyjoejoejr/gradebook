@@ -1,6 +1,6 @@
 import React from 'react';
 
-const StudentListItem = ({ student, handleRemove, handleUpdate }) => (
+const StudentListItem = ({ student, index, handleRemove, handleUpdate }) => (
   <li>
     <span>{student.name}</span>
 
@@ -8,7 +8,7 @@ const StudentListItem = ({ student, handleRemove, handleUpdate }) => (
       <label>
         Grade
           <input onChange={event => {
-              handleUpdate(event.target.value)
+              handleUpdate(index, event.target.value);
             }}
             value={student.grade}
           />
@@ -26,9 +26,9 @@ const StudentListItem = ({ student, handleRemove, handleUpdate }) => (
 </li>
 )
 
-
 StudentListItem.PropTypes = {
   student: React.PropTypes.object.isRequired,
+  index: React.PropTypes.number.isRequired,
   handleRemove: React.PropTypes.func,
   handleUpdate: React.PropTypes.func,
 };

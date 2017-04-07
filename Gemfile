@@ -11,6 +11,7 @@ gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.7'
 gem 'sass-rails', github: "rails/sass-rails"
 gem 'active_model_serializers', '~> 0.10.0'
+gem 'knock'
 
 gem 'uglifier', '>= 1.3.0'
 gem 'webpacker'
@@ -23,6 +24,7 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem 'chromedriver-helper'
   gem 'factory_girl_rails'
+  gem 'database_cleaner'
 end
 
 group :development do
