@@ -1,27 +1,6 @@
 import React from 'react';
-import { searchStudents } from 'utils/api';
-
-const StudentListItem = ({ student, index, handleRemove, handleUpdate }) => (
-  <li>
-    {student.name}
-
-    <label>
-      Grade
-      <input onChange={event => {
-          handleUpdate(event.target.value, index)
-        }}
-        value={student.grade}
-      />
-    </label>
-
-    <button onClick={event => {
-      handleRemove(student);
-      event.preventDefault();
-    }}>
-    Remove Student
-  </button>
-</li>
-)
+import StudentListItem from 'StudentListItem';
+import StudentSearch from 'StudentSearch';
 
 class CourseForm extends React.Component {
   constructor(props) {
@@ -30,13 +9,12 @@ class CourseForm extends React.Component {
       name: '',
       semester: '',
       id: '',
-      searchResults: [],
-      students: []
+      students: [],
+      errors: null,
     };
     this._clearState = this.state;
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleSearch = this.handleSearch.bind(this);
     this.addStudent = this.addStudent.bind(this);
     this.removeStudent = this.removeStudent.bind(this);
     this.updateGrade = this.updateGrade.bind(this);
@@ -76,14 +54,6 @@ class CourseForm extends React.Component {
     });
   }
 
-  handleSearch(event) {
-    if(event.target.value) {
-      searchStudents(event.target.value).then(students => {
-        this.setState({ searchResults: students });
-      });
-    }
-  }
-
   addStudent(student) {
     if (this.state.students.indexOf(student) === -1) {
       this.setState(state => ({ students: state.students.concat(student) }));
@@ -96,7 +66,7 @@ class CourseForm extends React.Component {
     });
   }
 
-  updateGrade(grade, i) {
+  updateGrade(i, grade) {
     this.setState(state => {
       const student = Object.assign({}, state.students[i], { grade });
       const students = state.students.map((s, j) => (i === j ? student : s));
@@ -132,24 +102,7 @@ class CourseForm extends React.Component {
               </select>
             </label>
 
-            <label>
-              Search Students
-              <input onChange={this.handleSearch} />
-            </label>
-
-            <ul>
-              { this.state.searchResults.map((student, i) => (
-                <li key={i}>
-                  {student.name}
-                  <button onClick={event => {
-                    this.addStudent(student)
-                    event.preventDefault();
-                  }}>
-                  Add Student
-                </button>
-              </li>
-              ))}
-            </ul>
+            <StudentSearch addStudent={this.addStudent} />
 
             <p>Enrolled</p>
             <ul>
@@ -159,11 +112,10 @@ class CourseForm extends React.Component {
                   index={i}
                   student={student}
                   handleRemove={this.removeStudent}
-                  handleUpdate={this.updateGrade}
+                  handleUpdate={this.updateGrade.bind(i)}
                 />
               ))}
             </ul>
-
 
             <input type="submit" value={`${this.props.buttonText} Course`} />
           </form>

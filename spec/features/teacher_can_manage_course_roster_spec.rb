@@ -45,7 +45,6 @@ RSpec.describe "Teacher Can Manage Their Course Roster" do
       click_button "Update Course"
     end
 
-    click_button "Edit Course"
     expect(page).to have_content student.name
   end
 end

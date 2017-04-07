@@ -1,4 +1,5 @@
 import React from 'react';
+import StudentListItem from 'StudentListItem';
 
 const CourseList = ({ courses, editCourse, deleteCourse }) => (
   <ul>
@@ -16,6 +17,13 @@ const CourseList = ({ courses, editCourse, deleteCourse }) => (
             Delete Course
           </button>
         }
+
+        <ul>
+          { course.students.map((student, i) => (
+              <StudentListItem key={i} student={student} />
+            ))
+          }
+        </ul>
       </li>
     )) }
   </ul>
