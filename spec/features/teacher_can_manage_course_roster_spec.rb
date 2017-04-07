@@ -30,6 +30,22 @@ RSpec.describe "Teacher Can Manage Their Course Roster" do
     expect(page).to have_no_content new_course_name
   end
 
-  it "can add students to a course"
-  it "can give students grades"
+  it "can manage a course's students" do
+    create :course
+    student = create :student
+
+    visit "/"
+
+    click_button "Edit Course"
+
+    within "#course" do
+      fill_in "Search Students", with: student.name
+      click_button "Add Student"
+      fill_in "Grade", with: 90
+      click_button "Update Course"
+    end
+
+    click_button "Edit Course"
+    expect(page).to have_content student.name
+  end
 end

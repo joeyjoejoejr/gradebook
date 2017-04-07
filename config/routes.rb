@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   namespace :api do
-    resources :courses, only: [:index, :create, :update, :destroy]
+    resources :courses, except: [:show, :edit]
+    resources :students, only: [:index]
   end
 
   root to: 'pages#index'
