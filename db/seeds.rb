@@ -6,6 +6,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+Rails.application.eager_load!
+
 Registration.destroy_all
 Course.destroy_all
 User.destroy_all
