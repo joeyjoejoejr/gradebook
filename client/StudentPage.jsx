@@ -27,7 +27,10 @@ class StudentPage extends React.Component {
         <ListGroup>
           { this.state.courses.map((course, i) => (
               <ListGroupItem header={course.name} key={i}>
-                {course.name} {course.teacher_name} {course.grade}
+                <dl>
+                  <dt>Teacher</dt><dd>{course.teacher_name}</dd>
+                  <dt>Your Grade</dt><dd>{course.grade}</dd>
+                </dl>
               </ListGroupItem>
             ))
           }

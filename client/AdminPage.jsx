@@ -29,7 +29,11 @@ class AdminPage extends React.Component {
               <ListGroupItem
                 key={i}
                 header={course.name}>
-                  {course.teacher_name} {course.average_grade} {course.enrollment}
+                <dl>
+                  <dt>Teacher</dt><dd>{course.teacher_name}</dd>
+                  <dt>Average Grade</dt><dd>{course.average_grade}</dd>
+                  <dt>Enrollment</dt><dd>{course.enrollment}</dd>
+                </dl>
               </ListGroupItem>
             ))
           }
