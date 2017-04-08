@@ -1,32 +1,37 @@
 import React from 'react';
+import { Button, ListGroup, ListGroupItem } from 'react-bootstrap';
 import StudentListItem from 'StudentListItem';
 
 const CourseList = ({ courses, editCourse, deleteCourse }) => (
-  <ul>
+  <ListGroup>
     { courses.map((course, i) => (
-      <li key={i}>
-        { course.name }
+      <ListGroupItem header={course.name} key={i}>
         { editCourse &&
-          <button onClick={() => editCourse(course)}>
-            Edit Course
-          </button>
+            <Button
+              bsSize="small"
+              onClick={() => editCourse(course)}>
+              Edit Course
+            </Button>
         }
 
         { deleteCourse &&
-          <button onClick={() => deleteCourse(course)}>
-            Delete Course
-          </button>
+            <Button
+              bsSize="small"
+              bsStyle="danger"
+              onClick={() => deleteCourse(course)}>
+              Delete Course
+            </Button>
         }
 
-        <ul>
+        <ListGroup>
           { course.students.map((student, i) => (
               <StudentListItem key={i} student={student} />
             ))
           }
-        </ul>
-      </li>
+        </ListGroup>
+      </ListGroupItem>
     )) }
-  </ul>
+  </ListGroup>
 );
 
 CourseList.propTypes = {

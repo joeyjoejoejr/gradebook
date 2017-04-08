@@ -1,29 +1,32 @@
 import React from 'react';
+import { Button, ListGroupItem } from 'react-bootstrap';
 
 const StudentListItem = ({ student, index, handleRemove, handleUpdate }) => (
-  <li>
-    <span>{student.name}</span>
+  <ListGroupItem
+    header={student.name}
+    className="list-group-item">
 
     { handleUpdate ?
-      <label>
+      <label className="form-group">
         Grade
           <input onChange={event => {
               handleUpdate(index, event.target.value);
             }}
             value={student.grade}
+            className="form-control"
           />
       </label> :
       <span>{student.grade}</span>
     }
 
     { handleRemove &&
-      <button onClick={event => {
+      <Button bsStyle="danger" bsSize="small" onClick={event => {
         handleRemove(student);
         event.preventDefault();
       }}>
         Remove Student
-      </button> }
-</li>
+      </Button> }
+  </ListGroupItem>
 )
 
 StudentListItem.PropTypes = {

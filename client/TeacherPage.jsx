@@ -1,4 +1,5 @@
 import React from 'react';
+import { Row, Col } from 'react-bootstrap';
 import CourseForm from 'CourseForm';
 import CourseList from 'CourseList';
 import {
@@ -64,16 +65,20 @@ class TeacherPage extends React.Component {
 
   render() {
     return (
-      <div>
-        <CourseForm submitForm={this.state.currentCourse.id ? this.updateCourse : this.createCourse }
-          buttonText={ this.state.currentCourse.id ? "Update" : "Add" }
-          course={this.state.currentCourse} />
+      <Row>
+        <Col sm={4}>
+          <CourseForm submitForm={this.state.currentCourse.id ? this.updateCourse : this.createCourse }
+            buttonText={ this.state.currentCourse.id ? "Update" : "Add" }
+            course={this.state.currentCourse} />
+        </Col>
 
-        <h2>Courses for {currentUser().name}</h2>
-        <CourseList editCourse={this.editCourse}
-          deleteCourse={this.deleteCourse}
-          courses={this.state.courses} />
-      </div>
+        <Col sm={8}>
+          <h2>Courses for {currentUser().name}</h2>
+          <CourseList editCourse={this.editCourse}
+            deleteCourse={this.deleteCourse}
+            courses={this.state.courses} />
+        </Col>
+      </Row>
     );
   }
 }

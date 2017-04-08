@@ -1,4 +1,5 @@
 import React from 'react';
+import { Grid, Row, Button } from 'react-bootstrap';
 import TeacherPage from 'TeacherPage';
 import StudentPage from 'StudentPage';
 import AdminPage from 'AdminPage';
@@ -26,15 +27,21 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        { this.state.user.name &&
-            (
-              <span>
-                Signed in as {this.state.user.name}
-                <button onClick={this.handleLogout}>Sign Out</button>
-              </span>
-            )
-        }
+      <Grid>
+        <Row>
+          <h1>Grade Book</h1>
+          { this.state.user.name &&
+              (
+                <span className="pull-right">
+                  Signed in as {this.state.user.name}
+                  <Button bsSize="small"
+                    bsStyle="warning"
+                    onClick={this.handleLogout}>Sign Out</Button>
+                </span>
+              )
+          }
+        </Row>
+
         {
           {
             'Teacher': <TeacherPage />,
@@ -43,7 +50,7 @@ class App extends React.Component {
             'default': <LoginForm login={this.handleLogin} />,
           }[this.state.user.type || 'default']
         }
-      </div>
+      </Grid>
     );
   }
 }

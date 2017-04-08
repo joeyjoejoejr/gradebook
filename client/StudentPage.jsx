@@ -1,4 +1,5 @@
 import React from 'react';
+import { ListGroup, ListGroupItem } from 'react-bootstrap';
 import { currentUser, getDashboard } from 'utils/api';
 
 class StudentPage extends React.Component {
@@ -23,14 +24,14 @@ class StudentPage extends React.Component {
         <h2>Courses for {currentUser().name}</h2>
         <h3>GPA {this.state.gpa}</h3>
 
-        <ul>
+        <ListGroup>
           { this.state.courses.map((course, i) => (
-              <li key={i}>
+              <ListGroupItem header={course.name} key={i}>
                 {course.name} {course.teacher_name} {course.grade}
-              </li>
+              </ListGroupItem>
             ))
           }
-        </ul>
+        </ListGroup>
       </div>
     )
   }

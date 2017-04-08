@@ -1,4 +1,5 @@
 import React from 'react';
+import { ListGroupItem, ListGroup, Button } from 'react-bootstrap';
 import { searchStudents } from 'utils/api';
 
 class StudentSearch extends React.Component {
@@ -20,25 +21,27 @@ class StudentSearch extends React.Component {
   render() {
     return (
       <div>
-        <label>
+        <label className="form-group">
           Search Students
-          <input onChange={this.handleSearch} />
+          <input className="form-control" onChange={this.handleSearch} />
         </label>
 
-        <ul>
+        <ListGroup>
           { this.state.searchResults.map((student, i) => (
-            <li key={i}>
+            <ListGroupItem key={i}>
               {student.name}
-              <button onClick={event => {
+              <Button
+                bsSize="small"
+                onClick={event => {
                 this.props.addStudent(student)
                 event.preventDefault();
               }}>
-              Add Student
-            </button>
-          </li>
-          ))}
-        </ul>
-      </div>
+                Add Student
+              </Button>
+            </ListGroupItem>
+            ))}
+          </ListGroup>
+        </div>
     );
   }
 }

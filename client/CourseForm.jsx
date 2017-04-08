@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button, ListGroup, ListGroupItem } from 'react-bootstrap';
 import StudentListItem from 'StudentListItem';
 import StudentSearch from 'StudentSearch';
 
@@ -66,7 +67,9 @@ class CourseForm extends React.Component {
   updateGrade(i, grade) {
     this.setState(state => {
       const student = Object.assign({}, state.students[i], { grade });
-      const students = state.students.map((s, j) => (i === j ? student : s));
+      const students = state.students.map((s, j) => {
+        return i === j ? student : s
+      })
       return {
         students: students
       };
@@ -78,20 +81,21 @@ class CourseForm extends React.Component {
       <form id="course" onSubmit={this.handleSubmit}>
         { this.state.errors &&
             this.state.errors.map((err, i) => <li key={i} >{err}</li>) }
-            <label>
+            <label className="form-group">
               Name
               <input
                 name="name"
                 type="text"
                 value={this.state.name}
                 onChange={this.handleChange}
+                className="form-control"
               />
             </label>
 
             <StudentSearch addStudent={this.addStudent} />
 
             <p>Enrolled</p>
-            <ul>
+            <ListGroup componentClass="ul">
               { this.state.students && this.state.students.map((student, i) => (
                 <StudentListItem
                   key={i}
@@ -101,9 +105,11 @@ class CourseForm extends React.Component {
                   handleUpdate={this.updateGrade}
                 />
               ))}
-            </ul>
+            </ListGroup>
 
-            <input type="submit" value={`${this.props.buttonText} Course`} />
+            <Button type="submit" bsStyle="primary">
+              {this.props.buttonText} Course
+            </Button>
           </form>
     );
   }
