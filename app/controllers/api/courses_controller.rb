@@ -2,41 +2,25 @@ class Api::CoursesController < ApiController
   before_action :authenticate_user
 
   def create
-    students = student_params.fetch(:students, [])
-    course = Course.new course_params.merge(
-      teacher_id: current_user.id
+    course_creator = CreateCourse.new(
+      course_params.merge(current_user: current_user)
     )
 
-    students.each do |student|
-      course.registrations.build(
-        student_id: student.fetch(:id),
-        grade: student.fetch(:grade, nil)
-      )
-    end
-
-    if course.save
-      render json: course, status: :created
+    if course_creator.save
+      render json: course_creator, status: :created, serializer: CourseResourceSerializer
     else
-      render json: { errors: course.errors.full_messages },
+      render json: { errors: course_creator.errors.full_messages },
              status: :unprocessable_entity
     end
   end
 
   def update
-    students = student_params.fetch(:students, [])
-    student_ids = students.map { |student| student.fetch(:id) }
-    update_params = course_params.merge(student_ids: student_ids)
     course = Course.find params[:id]
-    if course.update update_params
-      students.each do |student|
-        course.registrations
-          .where(student_id: student.fetch(:id))
-          .update(grade: student.fetch(:grade, nil))
-      end
-
-      render json: course
+    update_course = UpdateCourse.new course: course, params: course_params
+    if update_course.update
+      render json: update_course, serializer: CourseResourceSerializer
     else
-      render json: { errors: course.errors.full_messages },
+      render json: { errors: update_course.errors.full_messages },
              status: :unprocessable_entity
     end
   end
@@ -48,10 +32,10 @@ class Api::CoursesController < ApiController
   private
 
   def course_params
-    params.require(:course).permit(:name)
+    params.require(:course).permit(:name, students: [:id, :grade])
   end
 
   def student_params
-    params.require(:course).permit(students: [:id, :name, :grade])
+    params.require(:course).permit(students: [:id, :grade])
   end
 end

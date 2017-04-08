@@ -23,7 +23,6 @@ RSpec.describe Api::CoursesController, type: :controller do
           name: "Biology 101",
           students: [{
             id: student.id,
-            name: student.name,
             grade: "90"
           }]
         }
