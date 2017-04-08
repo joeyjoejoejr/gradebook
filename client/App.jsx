@@ -1,6 +1,7 @@
 import React from 'react';
 import TeacherPage from 'TeacherPage';
 import StudentPage from 'StudentPage';
+import AdminPage from 'AdminPage';
 import LoginForm from 'LoginForm';
 import { currentUser, login, logout } from 'utils/api';
 
@@ -38,6 +39,7 @@ class App extends React.Component {
           {
             'Teacher': <TeacherPage />,
             'Student': <StudentPage />,
+            'Admin': <AdminPage />,
             'default': <LoginForm login={this.handleLogin} />,
           }[this.state.user.type || 'default']
         }

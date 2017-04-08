@@ -12,4 +12,10 @@ FactoryGirl.define do
     password "password"
     email
   end
+
+  factory :admin do
+    name "Jane Williams"
+    password "password"
+    email
+  end
 end

@@ -12,9 +12,11 @@
 * For simplicity there is no concept of incomplete
 * Students can only view their own grades
 * For the sake of simplicity there will be no UI to manage semesters, and all
-  courses will be assumed to be on the currenrt semester.
+  courses will be assumed to be on the current semester.
 * The front end will be simple enough that it won't need it's own tests
 * This app will not support IE (no fetch or Promise implementations)
+* Enrollment numbers are unique students. So while a student can be enrolled in
+  many courses they only count as one enrollment for totals.
 
 ## Intended Database Schema
 

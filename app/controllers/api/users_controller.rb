@@ -17,7 +17,24 @@ class Api::UsersController < ApiController
               WHEN (grade >= 70) AND (grade < 80) THEN 2
               WHEN (grade >= 80) AND (grade < 90) THEN 3
               WHEN grade >= 90 THEN 4
-            END }).to_s
+            END })
+        }
+      when Admin
+        courses = current_user.courses
+          .select(
+            :id,
+            :name,
+            "MAX(users.name) as teacher_name",
+            "AVG(grade) as average_grade",
+            "COUNT(*) as enrollment"
+          )
+          .joins(:teacher)
+          .joins(:registrations)
+          .group(:id)
+
+        {
+          courses: courses,
+          enrollment: current_user.courses.joins(:registrations).count("DISTINCT student_id")
         }
       when Teacher
         current_user.courses
