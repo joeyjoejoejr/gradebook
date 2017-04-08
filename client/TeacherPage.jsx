@@ -21,7 +21,7 @@ class TeacherPage extends React.Component {
   }
 
   componentDidMount() {
-    getDashboard().then(courses => this.setState({ courses }));
+    getDashboard().then(({ courses }) => this.setState({ courses }));
   }
 
   resetForm() {
@@ -75,7 +75,7 @@ class TeacherPage extends React.Component {
           courses={this.state.courses} />
       </div>
     );
-}
+  }
 }
 
 export default TeacherPage;
