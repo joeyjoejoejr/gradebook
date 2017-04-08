@@ -13,16 +13,6 @@ RSpec.describe Api::CoursesController, type: :controller do
   # as a hash to the request. It appears rspec is loading a depricated module.
   before(:each) { request.headers.merge! auth_header }
 
-  describe "GET #index" do
-    let!(:course) { create :course }
-
-    it "returns courses" do
-      get :index
-      expect(response).to have_http_status(:success)
-      expect(response.body).to match course.name
-    end
-  end
-
   describe "POST #create" do
     let(:course_name) { "Biology 101" }
 

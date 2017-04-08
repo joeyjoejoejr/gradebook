@@ -1,10 +1,6 @@
 class Api::CoursesController < ApiController
   before_action :authenticate_user
 
-  def index
-    render json: Course.all
-  end
-
   def create
     students = student_params.fetch(:students, [])
     course = Course.new course_params.merge(

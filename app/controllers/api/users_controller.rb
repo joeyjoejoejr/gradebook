@@ -19,6 +19,8 @@ class Api::UsersController < ApiController
               WHEN grade >= 90 THEN 4
             END }).to_s
         }
+      when Teacher
+        current_user.courses
       end
 
     render json: user_dashboard

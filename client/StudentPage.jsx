@@ -11,9 +11,9 @@ class StudentPage extends React.Component {
   }
 
   componentDidMount() {
-    getDashboard().then(dashboard => this.setState({
-      courses: dashboard.courses,
-      gpa: dashboard.gpa
+    getDashboard().then(({courses, gpa}) => this.setState({
+      courses,
+      gpa
     }));
   }
 

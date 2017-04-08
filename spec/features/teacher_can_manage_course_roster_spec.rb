@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe "Teacher Can Manage Their Course Roster" do
   let(:course_name) { "Biology 101" }
   let(:new_course_name) { "Biology 102" }
+  let(:teacher) { create :teacher, password: "password" }
 
   before :each do
-    teacher = create :teacher, password: "password"
     visit "/"
     fill_in "Email", with: teacher.email
     fill_in "Password", with: "password"
@@ -41,7 +41,7 @@ RSpec.describe "Teacher Can Manage Their Course Roster" do
   end
 
   it "can manage a course's students" do
-    create :course
+    create :course, teacher: teacher
     student = create :student
 
     visit "/"

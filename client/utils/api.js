@@ -15,9 +15,6 @@ const handleResponse = response => response.json().then(json => {
 
 const getUser = () => fetch('api/users', { headers }).then(handleResponse);
 
-export let getCourses = () => fetch('api/courses', { headers })
-  .then(handleResponse);
-
 export let getDashboard = () => fetch('api/users/dashboard', { headers })
   .then(handleResponse);
 

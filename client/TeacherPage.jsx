@@ -1,7 +1,12 @@
 import React from 'react';
 import CourseForm from 'CourseForm';
 import CourseList from 'CourseList';
-import { createCourse, updateCourse, getCourses, deleteCourse } from 'utils/api';
+import {
+  createCourse,
+  updateCourse,
+  getDashboard,
+  deleteCourse,
+  currentUser } from 'utils/api';
 
 class TeacherPage extends React.Component {
   constructor(props) {
@@ -16,7 +21,7 @@ class TeacherPage extends React.Component {
   }
 
   componentDidMount() {
-    getCourses().then(courses => this.setState({ courses }));
+    getDashboard().then(courses => this.setState({ courses }));
   }
 
   resetForm() {
@@ -63,6 +68,8 @@ class TeacherPage extends React.Component {
         <CourseForm submitForm={this.state.currentCourse.id ? this.updateCourse : this.createCourse }
           buttonText={ this.state.currentCourse.id ? "Update" : "Add" }
           course={this.state.currentCourse} />
+
+        <h2>Courses for {currentUser().name}</h2>
         <CourseList editCourse={this.editCourse}
           deleteCourse={this.deleteCourse}
           courses={this.state.courses} />
