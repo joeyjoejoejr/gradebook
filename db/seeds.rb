@@ -6,8 +6,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Course.destroy_all
 Registration.destroy_all
+Course.destroy_all
 User.destroy_all
 
 Admin.create!(
@@ -17,7 +17,7 @@ Admin.create!(
   password_confirmation: "password",
 )
 
-Teacher.create!(
+teacher = Teacher.create!(
   name: "Jill Smith",
   email: "jsmith@example.com",
   password: 'password',
@@ -43,4 +43,19 @@ Student.create!(
   email: "jhiggenbotham@example.com",
   password: 'password',
   password_confirmation: 'password',
+)
+
+Course.create!(
+  name: "Biology 101",
+  teacher: teacher,
+)
+
+Course.create!(
+  name: "World History",
+  teacher: teacher,
+)
+
+Course.create!(
+  name: "Linear Algebra",
+  teacher: teacher,
 )
